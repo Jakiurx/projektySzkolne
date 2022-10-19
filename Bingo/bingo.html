@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Witam</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="bingo.css">
+</head>
+
+<body>
+    <div id="header">
+        <h1>Bingo</h1>
+    </div>
+    <div id="left">
+        <div id="header2">
+            <div class="center">
+                <div class="lball" id="ball1"></div>
+            </div>
+        </div>
+        <div id="results">
+
+        </div>
+    </div>
+    <div id="right">
+        <img id="speaker" src="speaker_on.png" alt="speaker" onclick="changeSpeaking()">
+        <h2 id="end">Twoje liczby</h2>
+        <img id="image" src="win.gif" alt="win.gif">
+        <table id="table">
+            <tr>
+                <td id="cell0" onclick="mark(0)"></td>
+                <td id="cell1" onclick="mark(1)"></td>
+                <td id="cell2" onclick="mark(2)"></td>
+                <td id="cell3" onclick="mark(3)"></td>
+                <td id="cell4" onclick="mark(4)"></td>
+            </tr>
+            <tr>
+                <td id="cell5" onclick="mark(5)"></td>
+                <td id="cell6" onclick="mark(6)"></td>
+                <td id="cell7" onclick="mark(7)"></td>
+                <td id="cell8" onclick="mark(8)"></td>
+                <td id="cell9" onclick="mark(9)"></td>
+            </tr>
+            <tr>
+                <td id="cell10" onclick="mark(10)"></td>
+                <td id="cell11" onclick="mark(11)"></td>
+                <td id="cell12" onclick="mark(12)"></td>
+                <td id="cell13" onclick="mark(13)"></td>
+                <td id="cell14" onclick="mark(14)"></td>
+            </tr>
+            <tr>
+                <td id="cell15" onclick="mark(15)"></td>
+                <td id="cell16" onclick="mark(16)"></td>
+                <td id="cell17" onclick="mark(17)"></td>
+                <td id="cell18" onclick="mark(18)"></td>
+                <td id="cell19" onclick="mark(19)"></td>
+            </tr>
+            <tr>
+                <td id="cell20" onclick="mark(20)"></td>
+                <td id="cell21" onclick="mark(21)"></td>
+                <td id="cell22" onclick="mark(22)"></td>
+                <td id="cell23" onclick="mark(23)"></td>
+                <td id="cell24" onclick="mark(24)"></td>
+            </tr>
+        </table>
+        <div class="wrapper">
+            <input type="button" class="button" value="Rozpocznij" onclick="start()"> <br>
+            <input id="autodrawButton" class="button smolbaton" type="button" value="Losuj automatycznie" onclick="autoDraw()" disabled>
+            <input id="drawButton" class="button smolbaton" type="button" value="Losuj" onclick="draw()" disabled>
+        </div>
+    </div>
+    <div id="footer">
+        <h3>Autor: Mariusz Skibiński</h3>
+    </div>
+</body>
+<script src="bingo.js"></script>
+</html>

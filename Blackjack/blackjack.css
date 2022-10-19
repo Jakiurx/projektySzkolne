@@ -1,0 +1,658 @@
+@import url('https://fonts.googleapis.com/css2?family=Voltaire&family=Sofia&display=swap');
+body{
+	margin: 0px;
+	background-color: black;
+	font-family: Voltaire;
+	word-spacing: 5px;
+}
+input{
+	font-family: Voltaire;
+}
+li{
+	margin-bottom: 10px;
+}
+h1{
+	font-family: Sofia;
+	font-size: 50px;
+	margin-top: 0px;
+}
+#header{
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	color: white;
+	float: left;
+}
+.header_gradient{
+	float: left;
+	width: 100%;
+	height: 20px;
+	background-image: linear-gradient(black, darkgreen);
+}
+#footer{
+	float: left;
+	width: 100%;
+	height: 80px;
+	text-align: center;
+	color: white;
+}
+.footer_gradient{
+	float: left;
+	width: 100%;
+	height: 20px;
+	background-image: linear-gradient(darkgreen, black);
+}
+#center {
+	float: left;
+ 	width: 100%;
+ 	height: 650px;
+ 	background-color: darkgreen;
+}
+.stol{
+	float: left;
+	width: 100%;
+	height: 80%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#credity{
+	position: absolute; 
+	top: 130px;
+	left: 0px;
+	width: 200px;
+	height: 50px;
+	color: black;
+	font-size: xx-large;
+	background-color: rgb(28, 183, 255);
+	border: solid black 2px;
+	border-left: 0px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#info_img{
+	width: 30px;
+	height: 30px;
+}
+.info_arrow{
+	position: absolute;
+	top:-100%;
+	left: -60%;
+	width: 50px;
+}
+.info_img_otworz{
+	
+	animation: info_img_otworz 1s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes info_img_otworz {
+	from{
+		transform: rotateZ(0deg);
+	}
+	to{
+		transform: rotateZ(-180deg);
+	}
+}
+.info_img_zamknij{
+	animation: info_img_zamknij 1s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes info_img_zamknij {
+	from{
+		transform: rotateZ(180deg);
+	}
+	to{
+		transform: rotateZ(0deg);
+	}
+}
+#info_btn{
+	--left: -2px;
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: 220px;
+	left: -2px;
+	z-index: 11;
+	border: solid black 2px;
+	border-left: 0px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: rgb(28, 183, 255);
+	display: flex;
+    align-items: center;
+    justify-content: center;
+	color: black;
+	font-size: xx-large;
+	font-weight: bolder;
+}
+#info{
+	--left: -302px;
+	padding: 0px;
+	width: 300px;
+	height: 420px;
+	position: absolute;
+	top: 200px;
+	left: -302px;
+	z-index: 10;
+	border: solid black 2px;
+	border-left: 0px;
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+	background-color: rgb(28, 183, 255);
+	color: black;
+	font-size: large;
+	text-align: center;
+	overflow: hidden;
+}
+
+.tekst_next_1{
+	animation: tekst_next_1_animation 0.3s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes tekst_next_1_animation {
+	from{
+		left: 0px;
+	}
+	to{
+		left: -300px;
+	}
+}
+.tekst_next_2{
+	animation: tekst_next_2_animation 0.3s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes tekst_next_2_animation {
+	from{
+		left: 300px;
+	}
+	to{
+		left: 0px;
+	}
+}
+
+.tekst_back_1{
+	animation: tekst_back_1_animation 0.3s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes tekst_back_1_animation {
+	from{
+		left: 0px;
+	}
+	to{
+		left: 300px;
+	}
+}
+.tekst_back_2{
+	animation: tekst_back_2_animation 0.3s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes tekst_back_2_animation {
+	from{
+		left: -300px;
+	}
+	to{
+		left: 0px;
+	}
+}
+
+.info_tekst, .tekst_next_1, .tekst_next_2, .tekst_back_1, .tekst_back_2{
+	position: relative;
+	margin: 20px;
+}
+.info_naglowek{
+	margin-top: 10px;
+	font-size: xx-large;
+	font-weight: bolder;
+}
+#info_tekst_btn_1, #info_tekst_btn_2{
+	width: 25px;
+	height: 25px;
+	position: absolute;
+	top: auto;
+	border: 0px;
+	background: none;
+}
+#info_tekst_btn_1{
+	left: 120px;
+	bottom: 5px;
+}
+#info_tekst_btn_2{
+	right: 120px;
+	bottom: 5px;
+}
+.otworz_info, .otworz_infobtn{
+	animation: otworz 1s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes otworz {
+	from{
+		left: --left;
+	}
+	to{
+		left: calc(var(--left) + 302px);
+	}
+}
+.zamknij_info, .zamknij_infobtn{
+	animation: zamknij 1s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes zamknij {
+	from{
+		left: calc(var(--left) + 302px);
+	}
+	to{
+		left: --left;
+	}
+}
+
+
+.menu{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 20%;
+}
+.przyciski{
+	float: left;
+	width: 70%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: solid black 2px;
+	border-radius: 20px;
+	background-color: black;
+}
+.btn{
+	margin: auto;
+	height: 80%;
+	width: 20%;
+	font-size: large;
+	font-weight: bold;
+	border-radius: 10px;
+	border: solid black;
+	border-radius: 20px;
+	background-color: rgb(28, 183, 255);
+}
+.btn:disabled{
+	background-color: rgb(88, 88, 88);
+}
+.btn:disabled:hover{
+	background-color: rgb(56, 56, 56);
+}
+.btn:hover,.crdchange:hover{
+	background-color: rgb(17, 104, 145);
+}
+#okno{
+	text-align: center;
+	position: absolute;
+	width: 300px;
+	height: 150px;
+	z-index: 9;
+}
+#stawka_window{
+	width: inherit;
+	height: inherit;
+	font-size: 25px;
+	font-weight: bold;
+	border: solid black 1px;
+	background-color: grey;
+}
+#alert_window{
+	padding-top: 10px;
+	width: inherit;
+	height: inherit;
+	font-size: 25px;
+	font-weight: bold;
+	border: solid black 1px;
+	background-color: grey;
+}
+.crd{
+	width: 120px;
+	height: 40px;
+	position: absolute;
+	bottom: 50px;
+	left: 82px;
+	background-color: rgb(28, 183, 255);
+	padding-right: 10px;
+	font-size: 30px;
+	font-weight: bold;
+	text-align: right;
+}
+.crdchange{
+	width: 13%;
+	height: 30px;
+	position: relative;
+	top: 30px;
+	text-align: center;
+	font-weight: bold;
+	border: solid black 1px;
+	background-color: rgb(28, 183, 255);
+}
+#potwierdz{
+	width: 120px;
+	height: 40px;
+	position: absolute;
+	bottom: 10px;
+	left: 90px;
+	background-color: rgb(110, 173, 110);
+	font-size: large;
+	font-weight: bold;
+}
+#potwierdz:hover,.btn_yes:hover{
+	background-color: rgb(73, 116, 73);
+}
+#insurance_window{
+	width: inherit;
+	height: inherit;
+	font-size: 25px;
+	font-weight: bold;
+	border: solid black 1px;
+	background-color: grey;
+	padding-top: 10px;
+}
+.btn_yes{
+	width: 120px;
+	height: 40px;
+	position: absolute;
+	bottom: 5px;
+	left: 20px;
+	background-color: rgb(110, 173, 110);
+	font-size: large;
+	font-weight: bold;
+}
+.btn_no{
+	width: 120px;
+	height: 40px;
+	position: absolute;
+	bottom: 5px;
+	left: 160px;
+	background-color: rgb(185, 75, 75);
+	color:white;
+	font-size: large;
+	font-weight: bold;
+}
+.btn_no:hover{
+	background-color: rgb(119, 46, 46);
+}
+img{
+	width: 80px;
+}
+#karta_krupier1{
+	position: relative;
+	bottom: 80px;
+	right: 80px;
+	z-index: 1;
+	width: 0px;
+}
+#karta_krupier2{
+	position: relative;
+	bottom: 95px;
+	right: 60px;
+	z-index: 2;
+	width: 0px;
+}
+#karta_krupier3{
+	position: relative;
+	bottom: 110px;
+	right: 40px;
+	z-index: 3;
+	width: 0px;
+}
+#karta_krupier4{
+	position: relative;
+	bottom: 125px;
+	right: 20px;
+	z-index: 4;
+	width: 0px;
+}
+#karta_krupier5{
+	position: relative;
+	bottom: 60px;
+	right: 70px;
+	z-index: 5;
+	width: 0px;
+}
+#karta_krupier6{
+	position: relative;
+	bottom: 75px;
+	right: 50px;
+	z-index: 6;
+	width: 0px;
+}
+#karta_krupier7{
+	position: relative;
+	bottom: 90px;
+	right: 30px;
+	z-index: 7;
+	width: 0px;
+}
+#karta_krupier8{
+	position: relative;
+	bottom: 105px;
+	right: 10px;
+	z-index: 8;
+	width: 0px;
+}
+#karta_gracz1{
+	position: relative;
+	bottom: -200px;
+	right: 80px;
+	z-index: 1;
+	width: 0px;
+}
+#karta_gracz2{
+	position: relative;
+	bottom: -185px;
+	right: 60px;
+	z-index: 2;
+	width: 0px;
+}
+#karta_gracz3{
+	position: relative;
+	bottom: -170px;
+	right: 40px;
+	z-index: 3;
+	width: 0px;
+}
+#karta_gracz4{
+	position: relative;
+	bottom: -155px;
+	right: 20px;
+	z-index: 4;
+	width: 0px;
+}
+#karta_gracz5{
+	position: relative;
+	bottom: -220px;
+	right: 70px;
+	z-index: 5;
+	width: 0px;
+}
+#karta_gracz6{
+	position: relative;
+	bottom: -205px;
+	right: 50px;
+	z-index: 6;
+	width: 0px;
+}
+#karta_gracz7{
+	position: relative;
+	bottom: -190px;
+	right: 30px;
+	z-index: 7;
+	width: 0px;
+}
+#karta_gracz8{
+	position: relative;
+	bottom: -175px;
+	right: 10px;
+	z-index: 8;
+	width: 0px;
+}
+
+
+#karta_split1{
+	position: relative;
+	bottom: -200px;
+	right: 280px;
+	z-index: 1;
+	width: 0px;
+}
+#karta_split2{
+	position: relative;
+	bottom: -185px;
+	right: 260px;
+	z-index: 2;
+	width: 0px;
+}
+#karta_split3{
+	position: relative;
+	bottom: -170px;
+	right: 240px;
+	z-index: 3;
+	width: 0px;
+}
+#karta_split4{
+	position: relative;
+	bottom: -155px;
+	right: 220px;
+	z-index: 4;
+	width: 0px;
+}
+#karta_split5{
+	position: relative;
+	bottom: -220px;
+	right: 270px;
+	z-index: 5;
+	width: 0px;
+}
+#karta_split6{
+	position: relative;
+	bottom: -205px;
+	right: 250px;
+	z-index: 6;
+	width: 0px;
+}
+#karta_split7{
+	position: relative;
+	bottom: -190px;
+	right: 230px;
+	z-index: 7;
+	width: 0px;
+}
+#karta_split8{
+	position: relative;
+	bottom: -175px;
+	right: 210px;
+	z-index: 8;
+	width: 0px;
+}
+
+
+#karty_stos{
+	position: relative;
+	bottom: 130px;
+	right: -200px;
+	width: 0px;
+}
+.odwrocona_odwroc{
+	transform: rotateX(180deg);
+	animation: odwroc 1s ease-in-out, odwroc_karte 1s ;
+	animation-fill-mode: forwards;
+	animation-delay: 0s, 0.5s;
+}
+@keyframes odwroc {
+	from{
+		bottom: 85px;
+		right: -10px;
+	}
+}
+.odwrocona_przesun{
+	transform: rotateX(180deg);
+	animation: odwroconaprzesun 2s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes odwroconaprzesun {
+	from{
+		bottom: 130px;
+		right: -200px;
+	}
+	to{
+		bottom: 85px;
+		right: -10px;
+	}
+}
+.rozstaw_karte{
+	transform: rotateX(180deg);
+	animation: przesun 2s ease-in-out, odwroc_karte 1s ;
+	animation-fill-mode: forwards;
+	animation-delay: 0s, 1.5s;
+}
+@keyframes przesun {
+	from{
+		bottom: 130px;
+		right: -200px;
+	}
+}
+@keyframes odwroc_karte {
+	to{
+		transform: rotateX(0deg);
+	}
+}
+.split_ruch{
+	animation: split_rusz 1s ease-in-out;
+	animation-fill-mode: forwards;
+	animation-delay: 0s;
+}
+@keyframes split_rusz {
+	from{
+		bottom: -185px;
+		right: 60px;
+	}
+}
+
+.xd{
+	width: 0px;
+}
+
+#strzalka_krupier{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: -220px;
+	right: 50px;
+}
+#strzalka_gracz{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: 60px;
+	right: 50px;
+}
+#strzalka_split{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	top: 60px;
+	right: 250px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

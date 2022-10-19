@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Witam</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="blackjack.css">
+</head>
+
+<body>
+    <div id="header">
+        <h1>Blackjack</h1>
+    </div>
+    <div class="header_gradient"></div>
+    
+    <div id="center">
+    <div class="stol">
+        <div id="credity"></div>
+        <div id="info_btn" onclick="info()"><img src="info_img.png" id="info_img" ></img></div>
+        <div id="info">
+            <div class="info_naglowek">Zasady gry:</div>
+            <div id="tekst_1" class="info_tekst">W Blackjacka gra się przeciwko krupierowi. Gracz stawia zakład na stole używając żetonów. Następnie gracz i krupier dostają po dwie karty. Obydwie karty gracza są odkryte, natomiast tylko jedna karta krupiera jest pokazana graczowi. Gracz teraz może podjąć decyzje o swoim następnym ruchu.</div>
+            <div id="tekst_2" class="info_tekst" hidden>
+                Gracz może:
+                <ul>
+                    <li>Dobrać kartę (hit).</li>
+                    <li>Nie dobierać kart (stand).</li>
+                    <li>Podwoić stawkę (double), możliwe tylko po starcie, gracz wtedy dostanie tylko jedną kartę.</li>
+                </ul>
+            </div>
+            <div id="tekst_3" class="info_tekst" hidden>
+                <ul>
+                    <li>Rozdwoić karty (split), gdy dwie pierwsze karty gracza są tej samej wartości. Gracz wtedy dokłada drugą stawkę o wartości pierwszej stawki i może dobierać karty po rozdwojeniu. </li>
+                </ul>
+            </div>
+            <div id="tekst_4" class="info_tekst" hidden>
+                <ul>
+                    <li>Ubezpieczenie (insurance) jest dodatkową stawką możliwą tylko, gdy odkrytą kartą krupiera jest as. Gracz może postawić dodatkową stawkę, że zakryta karta krupiera ma wartość 10 (krupier ma Blackjacka). Gdy krupier ma blackjacka, gracz przegrywa stawkę podstawową, i wygrywa za ubezpieczenie.</li>
+                </ul>
+            </div>
+            <div id="tekst_5" class="info_tekst" hidden>Jeżeli gracz po dobraniu kart ma więcej niż 21 punktów to przegrywa zakład. Jeżeli gracz ma 21 punktów lub mniej, krupier odkrywa swoją zakrytą kartę i w zależności od liczby jego punktów może dobrać więcej kart. Krupier musi: wziąć kartę, jeżeli ma 16 punktów lub mniej i nie brać więcej kart, gdy ma 17 punktów lub więcej. Wygrywa ten, który ma sumę punktów bliższą lub równą 21.</div>
+            <div id="tekst_6" class="info_tekst" hidden>Punktacja kart:<br> 
+                <ul>
+                    <li>Karty od dwójki do dziesiątki mają wartość równą numerowi karty. </li>
+                    <li>Walet, dama i król mają wartość równą 10 punktów. </li>
+                    <li>As ma wartość równą 1 lub 11, w zależności co jest lepsze dla gracza. </li>
+                </ul>
+
+            </div>
+
+            <button id="info_tekst_btn_1" onclick="info_tekst(false)" disabled><img src="arrow_left.png" id="info_arrow_left" class="info_arrow"></button>
+            <button id="info_tekst_btn_2" onclick="info_tekst(true)"><img src="arrow_right.png" id="info_arrow_right" class="info_arrow"></button>
+        </div>
+
+
+        <div class="xd"><img id="strzalka_krupier" src="strzalka.png" hidden></div>
+        <div class="xd"><img id="strzalka_gracz" src="strzalka.png" hidden></div>
+        <div class="xd"><img id="strzalka_split" src="strzalka.png" hidden></div>
+        <div id="suma_krupier"> </div>
+        <div id="suma_gracz"> </div>
+        <div id="suma_split"> </div>
+        
+        <div id="karta_krupier1" > <img id="krupier1" src=""></img> </div>
+        <div id="karta_krupier2" > <img id="krupier2" src=""></img> </div>
+        <div id="karta_krupier3" > <img id="krupier3" src=""></img> </div>
+        <div id="karta_krupier4" > <img id="krupier4" src=""></img> </div>
+        <div id="karta_krupier5" > <img id="krupier5" src=""></img> </div>
+        <div id="karta_krupier6" > <img id="krupier6" src=""></img> </div>
+        <div id="karta_krupier7" > <img id="krupier7" src=""></img> </div>
+        <div id="karta_krupier8" > <img id="krupier8" src=""></img> </div>
+        
+        <div id="okno"> <!--! okienko wyskakujace na srodku stolu -->
+            <div id="stawka_window">
+                <p>Twoja stawka:</p>
+                <input class="crd" value=100 type="number" id="bet">
+                <input type="button" class="crdchange" onclick="crd_change('min')" value="MIN">
+                <input type="button" class="crdchange" onclick="crd_change('-100')" value="-100">
+                <input type="button" class="crdchange" onclick="crd_change('-50')" value="-50">
+                <input type="button" class="crdchange" onclick="crd_change('50')" value="+50">
+                <input type="button" class="crdchange" onclick="crd_change('100')" value="+100">
+                <input type="button" class="crdchange" onclick="crd_change('max')" value="MAX">
+            </div>
+            <div hidden id="alert_window">
+                <p id="napis">Nob Wygrał</p>
+                <input type="button" id="potwierdz" value="Potwierdź" onclick="potwierdz()">
+            </div>
+            <div hidden id="insurance_window">
+                <p id="napis">Insurance?</p>
+                <input type="button" class="btn_yes" value="Tak" onclick="insurance(true)">
+                <input type="button" class="btn_no" value="Nie" onclick="insurance(false)">
+            </div>
+        </div>
+
+        <div id="karta_gracz1" > <img id="gracz1" src=""></img> </div>
+        <div id="karta_gracz2" > <img id="gracz2" src=""></img> </div>
+        <div id="karta_gracz3" > <img id="gracz3" src=""></img> </div>
+        <div id="karta_gracz4" > <img id="gracz4" src=""></img> </div>
+        <div id="karta_gracz5" > <img id="gracz5" src=""></img> </div>
+        <div id="karta_gracz6" > <img id="gracz6" src=""></img> </div>
+        <div id="karta_gracz7" > <img id="gracz7" src=""></img> </div>
+        <div id="karta_gracz8" > <img id="gracz8" src=""></img> </div>
+
+        <div id="karta_split1" > <img id="split1" src=""></img> </div>
+        <div id="karta_split2" > <img id="split2" src=""></img> </div>
+        <div id="karta_split3" > <img id="split3" src=""></img> </div>
+        <div id="karta_split4" > <img id="split4" src=""></img> </div>
+        <div id="karta_split5" > <img id="split5" src=""></img> </div>
+        <div id="karta_split6" > <img id="split6" src=""></img> </div>
+        <div id="karta_split7" > <img id="split7" src=""></img> </div>
+        <div id="karta_split8" > <img id="split8" src=""></img> </div>
+
+        <div id="karty_stos"> <img id="stos_kart" src="karty/odwrocona.png"></img> </div>
+    </div>
+    <div class="menu">
+        <div class="przyciski">
+            <input class="btn" id="start" value="Start" type="button" onclick="start()">
+            <input disabled class="btn" id="hit" value="Hit" type="button" onclick="hit()">
+            <input disabled class="btn" id="stand" value="Stand" type="button" onclick="stand()">
+            <input disabled class="btn" id="double" value="Double" type="button" onclick="double()">
+            <input disabled class="btn" id="split" value="Split" type="button" onclick="split()">
+        </div>
+    </div>
+
+    </div>
+
+    <div class="footer_gradient"></div>
+    <div id="footer">
+        <h3>Autor: Mariusz Skibiński</h3>
+    </div>
+</body>
+<script>
+let karty = ["2c", "2d", "2h", "2s", "3c", "3d", "3h", "3s", "4c", "4d", "4h", "4s", "5c", "5d", "5h", "5s", "6c", "6d", "6h", "6s", "7c", "7d", "7h", "7s", "8c", "8d", "8h", "8s", "9c", "9d", "9h", "9s", "10c", "10d", "10h", "10s", "krol_c", "krol_d", "krol_h", "krol_s", "krolowa_c", "krolowa_d", "krolowa_h", "krolowa_s", "walet_c", "walet_d", "walet_h", "walet_s", "as_c", "as_d", "as_h", "as_s"];
+let wartosc = [2,3,4,5,6,7,8,9,10,10,10,10,"as"];
+let miejsca = [
+    ["gracz1","gracz2","gracz3","gracz4","gracz5","gracz6","gracz7","gracz8"],
+    ["krupier1","krupier2","krupier3","krupier4","krupier5","krupier6","krupier7","krupier8"],
+    ["split1","split2","split3","split4","split5","split6","split7","split8"]
+];
+
+let suma,       //* licznik punktow
+stawka,         //* stawka obstawiona
+uzyte,      //* uzyte karty z talii
+zakryta,        //* zmienna z odwrocona karta
+timeout_tak_o,  //* timeout przed interwalem V
+hittuj,         //* interwal 
+licznik,        //* licznik miejsca karty
+tura,       //* true = gracz, false = krupier;
+ins,        //* zmienna do otwierania "insurance_window"
+insuranced,         //* zmienna bool czy jest zgoda na insurance
+splitted,       //* zmienna bool czy gracz rozdzielil talię
+gracz1_wartosc,         //* zmienna z liczba 1 karty gracza / uzywana do "split"
+gracz2_wartosc,         //* zmienna z liczba 1 karty gracza / uzywana do "split"
+wygrana_timeout,        //* timeout do funkcji "wygrana"
+double_timeout;         //* timeout do przycisku "double"
+
+function randomNumber(number) {         //* losuje liczbe od 0 do -number-
+    let i = Math.floor(Math.random() * number);
+    if(uzyte.includes(i)) return randomNumber(number);
+    else{
+        uzyte.push(i);
+        return i;
+    }
+}
+
+function resetuj_karty(){
+    for(x of miejsca[0]){
+        document.getElementById(x).src = " ";
+        document.getElementById("karta_" + x).className = "";
+    }   
+    for(x of miejsca[1]){
+        document.getElementById(x).src = " ";
+        document.getElementById("karta_" + x).className = "";
+    }
+    for(x of miejsca[2]){
+        document.getElementById(x).src = " ";
+        document.getElementById("karta_" + x).className = "";
+    }
+}
+
+
+function start(){
+    blokada_przyciski("all",true);
+            //* sprawdzenie poprawnosci stawki
+    stawka = parseInt(document.getElementById("bet").value);
+    console.log(stawka);
+    if(isNaN(stawka)) {
+        document.getElementById("bet").value = 100;
+        return alert_window("Wpisz poprawnie liczbę");
+    }
+    if(stawka < 5) {
+        document.getElementById("bet").value = 5;
+        return alert_window("Za niska stawka");
+    }
+    if(stawka > credits) {
+        document.getElementById("bet").value = credits;
+        return alert_window("Nie stać cię!");
+    }
+    else document.getElementById("stawka_window").hidden = true;
+    strzalka("reset");
+    ins = false;
+    tura = true;
+    insuranced = false;
+    splitted = false;
+    licznik = [0,0,0];      //* licznik do miesjca / indeks 0 = gracz, 1 = krupier, 2 = gracz (split) 
+    uzyte = [];
+    suma = [0,0,0,0,0,0];       //* indeksy 0,1 = gracz, 2,3 = krupier  4,5 = gracz (split)
+    credits -= stawka;
+    document.getElementById("credity").innerHTML = credits + "$";
+
+    function losuj_karte(miejsce){
+        licz_sume(miejsce);
+        tura = !tura;
+    };
+
+    losuj_karte("gracz1");
+    setTimeout(losuj_karte,1000,["krupier1"]);
+    setTimeout(losuj_karte,2000,["gracz2"]);
+    setTimeout(losuj_karte,3000,["krupier2"]);
+
+    setTimeout(
+        function (){
+            blackjack();
+            strzalka("gracz");
+            if(gracz1_wartosc == gracz2_wartosc && ins == false) blokada_przyciski("split",false);
+        }
+    ,5000);
+}
+
+function hit(){
+    blokada_przyciski("all",true);
+    if(tura == "split") {
+        licz_sume(miejsca[2][licznik[2]]);
+        setTimeout(wygrana,2000); 
+    }
+    else if(tura == true) {                     //? if(true) nie dziala 
+        licz_sume(miejsca[0][licznik[0]]);
+        setTimeout(wygrana,2000); 
+    }
+    else if(tura == false) {
+        timeout_tak_o = setTimeout(interwal,1500);
+        hittuj = setInterval(interwal,4000);    //! nie dziala // juz dziala es
+    }
+    function interwal(){                            //* interwal dla krupiera
+        licz_sume(miejsca[1][licznik[1]]);
+        wygrana_timeout = setTimeout(wygrana,2000);
+    }
+}
+
+function stand(){
+    if(tura == "split") {
+        tura = true;
+        strzalka("gracz");
+    }
+    else if(tura == true){
+        blokada_przyciski("all",true);
+        tura = !tura;
+        strzalka("krupier");
+        odwroc_karte();
+        setTimeout(wygrana,1000);
+        hit();
+    }
+}
+
+function licz_sume(miejsce){
+    let i = randomNumber(52);
+    //!============= symulacja
+    //    if(miejsce == "gracz1") i = 40;
+    //    if(miejsce == "gracz2") i = 40;
+    //    if(miejsce == "krupier1") i = 51;
+    //    if(miejsce == "krupier2") i = 40;
+    //!=============
+    if(miejsce == "krupier2"){          //* 2 karta krupiera zostanie odwrocona i druga strona karty zostanie zapisana w zmiennej 'zakryta'
+        zakryta = "karty/"+karty[i]+".png";;
+        document.getElementById("krupier2").src = "karty/odwrocona.png";
+        document.getElementById("karta_krupier2").className += "odwrocona_przesun";
+    }
+    else{ 
+        document.getElementById(miejsce).src = "karty/odwrocona.png";
+        document.getElementById("karta_"+miejsce).className += "rozstaw_karte";
+        setTimeout(function (miejsce){document.getElementById(miejsce).src = "karty/"+karty[i]+".png";}, 1750, [miejsce]);
+    }
+    if(miejsce == "krupier1") {
+        if(i == 51 || i == 50 || i == 49 || i == 48) ins = true;        //* jesli 1 karta krupiera to as
+    } 
+
+    else if(miejsce == "gracz1") gracz1_wartosc = wartosc[Math.floor(i/4)];
+    else if(miejsce == "gracz2") gracz2_wartosc = wartosc[Math.floor(i/4)];
+
+    if(tura == true) {
+        if(wartosc[Math.floor(i/4)] == "as") {
+            suma[0] += 1;
+            suma[1] += 11;
+        }
+        else{
+            suma[0] += wartosc[Math.floor(i/4)];
+            suma[1] += wartosc[Math.floor(i/4)];
+        }
+        licznik[0]++;
+    }
+    else if(tura == false) {
+        if(wartosc[Math.floor(i/4)] == "as") {
+            suma[2] += 1;
+            suma[3] += 11;
+        }
+        else{
+            suma[2] += wartosc[Math.floor(i/4)];
+            suma[3] += wartosc[Math.floor(i/4)];
+        }
+        licznik[1]++;
+    }
+    else if(tura == "split") {
+        if(wartosc[Math.floor(i/4)] == "as") {
+            suma[4] += 1;
+            suma[5] += 11;
+        }
+        else{
+            suma[4] += wartosc[Math.floor(i/4)];
+            suma[5] += wartosc[Math.floor(i/4)];
+        }
+        licznik[2]++;
+    }
+    console.log(suma,stawka);
+}
+            //todo split win 
+function wygrana(){
+            //todo zmien strzalke
+
+    console.log("win")
+
+    if(tura == "split"){
+        if(suma[5] == 21 || suma[4] >= 21) { //* jesli ma as i liczba jest rowna 21, liczba as jest rowna / wieksza od 21
+            stand();
+            strzalka("gracz");
+        }
+    }
+
+    else if(tura == false){
+
+        if(suma[2] > 21){           //*jesli krupier ma wiecej niz 21
+            if(suma[0] <= 21){      //* gracz as 
+                if(splitted && suma[4] <= 21) return winner("split_gracz");
+                else return winner("gracz");
+            }
+            else if(splitted && suma[4] <= 21) return winner("split");
+        }
+        else if(suma[2] >= 17 && suma[2] <= 21 || suma[3] >= 17 && suma[3] <= 21){
+            let krupier_suma, gracz_suma, split_suma;
+
+            (suma[1] <= 21) ? gracz_suma = suma[1] : gracz_suma = suma[0];
+            (suma[3] <= 21) ? krupier_suma = suma[3] : krupier_suma = suma[2];
+            if(splitted) (suma[5] <= 21) ? split_suma = suma[5] : split_suma = suma[4];
+
+            console.log(krupier_suma, gracz_suma, split_suma)
+
+            if(gracz_suma - krupier_suma > 0){
+                if(splitted){
+                    if(split_suma - krupier_suma > 0) return winner("split_gracz");
+                    else if(split_suma - krupier_suma == 0) return winner("remis_gracz");
+                    else if(split_suma - krupier_suma < 0) return winner("lose_gracz");
+                }
+                else return winner("gracz");
+            }
+            else if(gracz_suma - krupier_suma == 0){
+                if(splitted){
+                    if(split_suma - krupier_suma > 0) return winner("split_remis");
+                    else if(split_suma - krupier_suma == 0) return winner("remis_remis");
+                    else if(split_suma - krupier_suma < 0) return winner("lose_remis");
+                }
+            else return winner("remis");
+            }
+            else if(gracz_suma - krupier_suma < 0){
+                if(splitted){
+                    if(split_suma - krupier_suma > 0) return winner("split_lose");
+                    else if(split_suma - krupier_suma == 0) return winner("remis_lose");
+                    else if(split_suma - krupier_suma < 0) return winner("lose_lose");
+                }
+                else return winner("lose");
+            }
+        }
+
+    /*
+        else if(suma[3] >= 17 && suma[3] <= 21){
+            if(suma[1] <= 21){
+                if(suma[1] - suma[3] > 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_gracz");
+                            else if(suma[5] - suma[3] == 0) winner("remis_gracz");
+                            else if(suma[5] - suma[3] < 0) winner("lose_gracz");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_gracz");
+                            else if(suma[4] - suma[3] == 0) winner("remis_gracz");
+                            else if(suma[4] - suma[3] < 0) winner("lose_gracz");
+                        }
+                    }
+                    else winner("gracz");
+                }
+                else if(suma[1] - suma[3] == 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_remis");
+                            else if(suma[5] - suma[3] == 0) winner("remis_remis");
+                            else if(suma[5] - suma[3] < 0) winner("lose_remis");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_remis");
+                            else if(suma[4] - suma[3] == 0) winner("remis_remis");
+                            else if(suma[4] - suma[3] < 0) winner("lose_remis");
+                        }
+                    }
+                    else winner("remis");
+                }
+                else if(suma[1] - suma[3] < 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_lose");
+                            else if(suma[5] - suma[3] == 0) winner("remis_lose");
+                            else if(suma[5] - suma[3] < 0) winner("lose_lose");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_lose");
+                            else if(suma[4] - suma[3] == 0) winner("remis_lose");
+                            else if(suma[4] - suma[3] < 0) winner("lose_lose");
+                        }
+                    }
+                    else winner("lose");
+                }
+            }
+
+            else if(suma[0] <= 21){
+                if(suma[0] - suma[3] > 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_gracz");
+                            else if(suma[5] - suma[3] == 0) winner("remis_gracz");
+                            else if(suma[5] - suma[3] < 0) winner("lose_gracz");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_gracz");
+                            else if(suma[4] - suma[3] == 0) winner("remis_gracz");
+                            else if(suma[4] - suma[3] < 0) winner("lose_gracz");
+                        }
+                    }
+                    else winner("gracz");
+                }
+                else if(suma[0] - suma[3] == 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_remis");
+                            else if(suma[5] - suma[3] == 0) winner("remis_remis");
+                            else if(suma[5] - suma[3] < 0) winner("lose_remis");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_remis");
+                            else if(suma[4] - suma[3] == 0) winner("remis_remis");
+                            else if(suma[4] - suma[3] < 0) winner("lose_remis");
+                        }
+                    }
+                    else winner("remis");
+                }
+                else if(suma[0] - suma[3] < 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[3] > 0) winner("split_lose");
+                            else if(suma[5] - suma[3] == 0) winner("remis_lose");
+                            else if(suma[5] - suma[3] < 0) winner("lose_lose");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[3] > 0) winner("split_lose");
+                            else if(suma[4] - suma[3] == 0) winner("remis_lose");
+                            else if(suma[4] - suma[3] < 0) winner("lose_lose");
+                        }
+                    }
+                    else winner("lose");
+                }
+            }
+            else winner("krupier");
+        }
+
+        else if(suma[2] >= 17 && suma[2] <= 21){
+            if(suma[1] <= 21){
+                if(suma[1] - suma[2] > 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_gracz");
+                            else if(suma[5] - suma[2] == 0) winner("remis_gracz");
+                            else if(suma[5] - suma[2] < 0) winner("lose_gracz");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_gracz");
+                            else if(suma[4] - suma[2] == 0) winner("remis_gracz");
+                            else if(suma[4] - suma[2] < 0) winner("lose_gracz");
+                        }
+                    }
+                    else winner("gracz");
+                }
+                else if(suma[1] - suma[2] == 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_remis");
+                            else if(suma[5] - suma[2] == 0) winner("remis_remis");
+                            else if(suma[5] - suma[2] < 0) winner("lose_remis");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_remis");
+                            else if(suma[4] - suma[2] == 0) winner("remis_remis");
+                            else if(suma[4] - suma[2] < 0) winner("lose_remis");
+                        }
+                    }
+                    else winner("remis");
+                }
+                else if(suma[1] - suma[2] < 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_lose");
+                            else if(suma[5] - suma[2] == 0) winner("remis_lose");
+                            else if(suma[5] - suma[2] < 0) winner("lose_lose");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_lose");
+                            else if(suma[4] - suma[2] == 0) winner("remis_lose");
+                            else if(suma[4] - suma[2] < 0) winner("lose_lose");
+                        }
+                    }
+                    else winner("lose");
+                }
+            }
+
+            else if(suma[0] <= 21){
+                if(suma[0] - suma[2] > 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_gracz");
+                            else if(suma[5] - suma[2] == 0) winner("remis_gracz");
+                            else if(suma[5] - suma[2] < 0) winner("lose_gracz");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_gracz");
+                            else if(suma[4] - suma[2] == 0) winner("remis_gracz");
+                            else if(suma[4] - suma[2] < 0) winner("lose_gracz");
+                        }
+                    }
+                    else winner("gracz");
+                }
+                else if(suma[0] - suma[2] == 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_remis");
+                            else if(suma[5] - suma[2] == 0) winner("remis_remis");
+                            else if(suma[5] - suma[2] < 0) winner("lose_remis");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_remis");
+                            else if(suma[4] - suma[2] == 0) winner("remis_remis");
+                            else if(suma[4] - suma[2] < 0) winner("lose_remis");
+                        }
+                    }
+                    else winner("remis");
+                }
+                else if(suma[0] - suma[2] < 0){
+                    if(splitted){
+                        if(suma[5] <= 21){
+                            if(suma[5] - suma[2] > 0) winner("split_lose");
+                            else if(suma[5] - suma[2] == 0) winner("remis_lose");
+                            else if(suma[5] - suma[2] < 0) winner("lose_lose");
+                        }
+                        else if(suma[4] <= 21){
+                            if(suma[4] - suma[2] > 0) winner("split_lose");
+                            else if(suma[4] - suma[2] == 0) winner("remis_lose");
+                            else if(suma[4] - suma[2] < 0) winner("lose_lose");
+                        }
+                    }
+                    else winner("lose");
+                }
+            }
+            else winner("krupier");
+        }
+    */
+
+    }
+    else if(tura == true || tura == "double"){
+        if(!splitted) if(suma[0] > 21) winner("krupier");
+        else if(suma[0] > 21 && suma[4] > 21) winner("krupier");
+        else if(suma[0] == 21 || suma[1] == 21 || suma[0] > 21) {
+            strzalka("krupier");
+            odwroc_karte();
+            setTimeout(wygrana,1000); 
+            return stand();
+        }
+    }
+    if(tura == "split" || tura == true) setTimeout('blokada_przyciski("gra",false)',500);
+}
+
+function blackjack(){
+    if(ins && credits >= stawka) return document.getElementById("insurance_window").hidden = false;
+
+    if(suma[3] == 21){
+        tura = !tura;
+        odwroc_karte();
+        blokada_przyciski("all",true);
+        return (suma[1] == 21) ? winner("remis") : winner("blackjack_krupier");
+    }
+    else if (suma[1] == 21) {
+        tura = !tura;
+        odwroc_karte();
+        blokada_przyciski("all",true);
+        return winner("blackjack_gracz");
+    }
+    else {
+        blokada_przyciski("gra",false);
+        blokada_przyciski("double",false);
+    }
+}
+
+function odwroc_karte(){
+    document.getElementById("karta_krupier2").className = "odwrocona_odwroc";
+    setTimeout('document.getElementById("krupier2").src = zakryta;',750);
+}
+
+function winner(strona){
+    if(strona == "remis"){
+        credits = credits + stawka;
+        alert_window("Remis");
+    }
+    else if(strona == "gracz"){
+        credits = credits + stawka*2;
+        alert_window("Wygrał gracz");
+    }
+    else if(strona == "krupier"){
+        alert_window("Wygrał krupier");
+    }
+    else if(strona == "split"){
+        credits = credits + stawka*2;
+        alert_window("Wygrał split");
+    }
+    else if(strona == "split_gracz"){
+        credits = credits + stawka*4;
+        alert_window("Wygrał split i gracz");
+    }
+    else if(strona == "split_remis"){
+        credits = credits + stawka*3;
+        alert_window("Wygrał split i remis");
+    }
+    else if(strona == "split_lose"){
+        credits = credits + stawka*2;
+        alert_window("Wygrał split i przegrałeś");
+    }
+    else if(strona == "remis_gracz"){
+        credits = credits + stawka*3;
+        alert_window("Wygrał gracz i remis");
+    }
+    else if(strona == "remis_remis"){
+        credits = credits + stawka*2;
+        alert_window("2x Remis");
+    }
+    else if(strona == "lose_gracz"){
+        credits = credits + stawka*2;
+        alert_window("Wygrał gracz i remis");
+    }
+    else if(strona == "lose_remis"){
+        credits = credits + stawka;
+        alert_window("Przegrałeś i remis");
+    }
+    else if(strona == "lose_lose"){
+        alert_window("2x Przegrałeś");
+    }
+    else if(strona == "lose"){
+        alert_window("Przegrałeś");
+    }
+    else if(strona == "blackjack_gracz"){
+        credits = credits + stawka*2;                    //? ile ma mnozyc przy wygranej "blackjack"
+        alert_window("Blackjack gracz");
+    }
+    else if(strona == "blackjack_krupier"){
+        alert_window("Blackjack krupier");
+    }
+    else if(strona == "ins_win"){
+        credits = credits + stawka*2;
+        alert_window("Wygrałeś");
+    }
+    else if(strona == "ins_lose"){
+        alert_window("Przegrałeś");
+    }
+
+    clearInterval(hittuj);
+    clearTimeout(timeout_tak_o);
+    clearTimeout(wygrana_timeout);
+    clearTimeout(double_timeout);
+    document.getElementById("credity").innerHTML = credits + "$";
+    blokada_przyciski("all",true);
+}
+
+let credits = 1000;
+document.getElementById("credity").innerHTML = credits + "$";
+
+function alert_window(napis){
+    blokada_przyciski("all",true);
+    document.getElementById("stawka_window").hidden = true;
+    document.getElementById("napis").innerText = napis;
+    document.getElementById("alert_window").hidden = false;
+
+}
+
+function potwierdz(){
+    resetuj_karty();
+    document.getElementById("alert_window").hidden = true;
+    document.getElementById("stawka_window").hidden = false;
+    blokada_przyciski("all",true);
+    blokada_przyciski("start",false);
+    
+    if(credits < 5){           //* dodanie creditow, jesli gracz wszystkie przegral
+        credits = 100;
+        document.getElementById("credity").innerHTML = credits + "$";
+        alert_window("Straciłeś wszystkie pieniądze, oto 100$");
+    } 
+}
+function blokada_przyciski(przycisk,stan){
+    if(przycisk == "start" || przycisk == "all") document.getElementById("start").disabled = stan;
+    if(przycisk == "hit" || przycisk == "all" || przycisk == "gra") document.getElementById("hit").disabled = stan;
+    if(przycisk == "stand" || przycisk == "all" || przycisk == "gra") document.getElementById("stand").disabled = stan;
+    if(przycisk == "double" || przycisk == "all") document.getElementById("double").disabled = stan;
+    if(przycisk == "split" || przycisk == "all") document.getElementById("split").disabled = stan;
+    if(stawka>credits){
+        document.getElementById("double").disabled = true;
+        document.getElementById("split").disabled = true;
+    }
+}
+
+function crd_change(ilosc){
+    let bet = parseInt(document.getElementById("bet").value);
+    if(ilosc == "min") document.getElementById("bet").value = 5;
+    else if(ilosc == "max") document.getElementById("bet").value = credits;
+    else {
+        ilosc = parseInt(ilosc);
+        console.log(ilosc)
+        if(bet + ilosc < 5) document.getElementById("bet").value = 5;
+        else if(bet + ilosc > credits) document.getElementById("bet").value = credits;
+        else document.getElementById("bet").value = bet + ilosc;
+    }
+}
+
+function insurance(zgoda){
+    document.getElementById("insurance_window").hidden = true;
+    blokada_przyciski("all",true)
+    if(zgoda){
+        strzalka("krupier")
+        insuranced = true;
+        credits -= stawka;
+        document.getElementById("credity").innerHTML = credits + "$";
+        odwroc_karte();
+        setTimeout(
+            'if(suma[3] == 21) winner("ins_win"); else winner("ins_lose");'     //? brak pewnosci czy to dziala
+        ,2000)
+    }
+    else {
+        if(gracz1_wartosc == gracz2_wartosc) blokada_przyciski("split",false);
+        ins = false;
+        blackjack();
+        if(suma[3] != 21){
+            blokada_przyciski("all",false);
+            blokada_przyciski("start",true);
+        }
+    }
+}
+            //! nie dziala dobrze
+function double(){
+    tura == "double";
+    blokada_przyciski("all",true)
+    credits -= stawka;
+    document.getElementById("credity").innerHTML = credits + "$";
+    stawka = stawka*2;
+    licz_sume(miejsca[0][licznik[0]])
+    double_timeout = setTimeout(stand,4000)
+    setTimeout(wygrana,3000);
+}
+            //! gra jako "split" nie dziala
+            //todo cos pokazujace ze gra sie jako split
+            //todo cos pokazujace punkty
+            //? czemu nie dziala setTimeout
+
+function split(){
+    splitted = true;
+    blokada_przyciski("all",true)
+    credits -= stawka;
+    document.getElementById("credity").innerHTML = credits + "$";
+    let tmp = document.getElementById("gracz2").src;
+
+    document.getElementById("gracz2").src = "";
+    document.getElementById("karta_gracz2").classList = "";
+    document.getElementById("split1").src = tmp;
+    document.getElementById("karta_split1").className += "split_ruch";
+            //! do naprawy
+    if(gracz2_wartosc == "as"){
+        suma[0] -= 1; 
+        suma[1] -=  11;
+        suma[4] += 1;
+        suma[5] += 11;
+    }
+    else{
+        suma[0] -= gracz2_wartosc; 
+        suma[1] -=  gracz2_wartosc;
+        suma[4] += gracz2_wartosc;
+        suma[5] += gracz2_wartosc;
+    }
+
+    licznik[0]--;
+    licznik[2]++;
+    
+    setTimeout('licz_sume(miejsca[0][licznik[0]]);',50);
+    strzalka("split");
+    setTimeout('tura = "split"; licz_sume(miejsca[2][licznik[2]]);',2000);
+    setTimeout('blokada_przyciski("gra",false)',4500);
+    setTimeout('wygrana()',4000);
+}
+
+function strzalka(miejsce){
+    document.getElementById("strzalka_krupier").hidden = true;
+    document.getElementById("strzalka_gracz").hidden = true;
+    document.getElementById("strzalka_split").hidden = true;
+
+    if(miejsce == "krupier") setTimeout('document.getElementById("strzalka_krupier").hidden = false;',500);
+    else if (miejsce == "gracz") setTimeout('document.getElementById("strzalka_gracz").hidden = false;',0);
+    else if (miejsce == "split") setTimeout('document.getElementById("strzalka_split").hidden = false;',4000);
+}
+
+//* Zakladka z zasadami gry
+
+let info_open = false;
+
+function info(){
+    if(info_open){
+        document.getElementById("info").className = "zamknij_info";
+        document.getElementById("info_btn").className = "zamknij_infobtn";
+        document.getElementById("info_img").className = "info_img_zamknij";
+        info_open = !info_open;
+    }
+    else{
+        document.getElementById("info").className = "otworz_info";
+        document.getElementById("info_btn").className = "otworz_infobtn";
+        document.getElementById("info_img").className = "info_img_otworz";
+        info_open = !info_open;
+    }
+}
+
+let strona_tekst = 1;
+let strona_tekst_1;
+function info_tekst(i){
+    if(i){
+        strona_tekst_1 = strona_tekst;
+        document.getElementById("info_tekst_btn_1").disabled = false;
+        setTimeout('document.getElementById("tekst_" + strona_tekst_1).hidden = true;',300);
+        document.getElementById("tekst_" + strona_tekst_1).className = "tekst_next_1";
+        strona_tekst++;
+        setTimeout('document.getElementById("tekst_" + strona_tekst).hidden = false;',301);
+        setTimeout('document.getElementById("tekst_" + strona_tekst).className = "tekst_next_2";',301);
+    }
+    else{
+        strona_tekst_1 = strona_tekst;
+        document.getElementById("info_tekst_btn_2").disabled = false;
+        setTimeout('document.getElementById("tekst_" + strona_tekst_1).hidden = true;',300);
+        document.getElementById("tekst_" + strona_tekst_1).className = "tekst_back_1"
+        strona_tekst--;
+        setTimeout('document.getElementById("tekst_" + strona_tekst).hidden = false;',301);
+        setTimeout('document.getElementById("tekst_" + strona_tekst).className = "tekst_back_2";',301);
+    }
+    if(strona_tekst == 1){
+        document.getElementById("info_tekst_btn_1").disabled = true;
+    }
+    else if(strona_tekst == 6){
+        document.getElementById("info_tekst_btn_2").disabled = true;
+    }
+}
+</script>
+
+</html>

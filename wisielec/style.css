@@ -1,0 +1,202 @@
+:root{
+    font-size: 17px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+body{
+    margin: 0px;
+    background-color: rgb(43, 51, 66);
+}
+#middle{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.game{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.keyboard{
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.keyboardRow{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.key,.unhidden{
+    color: rgb(125, 134, 159);
+    background-color: rgba(255, 255, 255, 10%);
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    font-weight: bolder;
+    width: 3rem;
+    height: 3rem;
+    border: .2rem solid rgb(125, 134, 159);
+    border-radius: .5rem;
+    padding: .1rem;
+    margin: .2rem;
+    transition: color 300ms, background-color 300ms, scale 300ms, border-color 300ms;
+}
+.key:hover,
+.unhidden:hover,
+.alt:hover,
+.alt.active:hover{
+    scale: 1.2;
+    color: black;
+    border-color: black;
+    background-color: rgba(255, 255, 255, 40%);
+}
+.key:disabled{
+    scale: 0.9;
+    color: rgb(79, 84, 97);
+    border-color: rgb(79, 84, 97);
+}
+.haslo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hasloLetter{
+    background-color: rgba(255, 255, 255, 20%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    font-weight: bolder;
+    width: 4rem;
+    height: 4rem;
+    border: .2rem solid rgb(0, 0, 0);
+    border-radius: .5rem;
+    padding: .2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: .2rem;
+    margin-bottom: 2rem;
+}
+dialog{ 
+    color: rgba(125, 134, 159, 50%);
+    top: 15rem;
+    width: 20rem;
+    height: 15rem;
+    background-color: rgb(43, 51, 66);
+    border: .4rem solid rgb(125, 134, 159);
+    border-radius: 3rem;
+    box-shadow: 0px 0px 20px 5px rgb(125, 134, 159);
+    z-index: 100;
+}
+dialog>div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+dialog>div>a{
+    padding: 1rem;
+    color: rgb(125, 134, 159);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 10%);
+    border: .2rem solid rgb(125, 134, 159);
+    border-radius: 3rem;
+    transition: color 300ms, background-color 300ms, scale 300ms, border-color 300ms;
+}
+dialog>div>a:hover{
+    scale: 1.2;
+    color: black;
+    border-color: black;
+    background-color: rgba(255, 255, 255, 40%);
+    box-shadow: 0px 0px 50px 2px black;
+}
+.hidden{
+    display: none;
+}
+.alt{
+    color: rgb(125, 134, 159);
+    background-color: rgba(255, 255, 255, 10%);
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
+    font-weight: bolder;
+    width: 5rem;
+    height: 3rem;
+    border: .2rem solid rgb(125, 134, 159);
+    border-radius: .5rem;
+    padding: .2rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: .5rem;
+    transition: color 300ms, background-color 300ms, scale 300ms, border-color 300ms;
+}
+.alt.active{
+    scale: 1.1;
+    color: rgb(0, 0, 0);
+    background-color: rgba(255, 255, 255, 20%);
+    border-color: rgb(0, 0, 0);
+}
+.obraz{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#obraz{
+    width: 20%;
+}
+@media (max-width : 600px) {
+    :root{
+        font-size: 10px;
+    }
+    .key,.unhidden{
+        justify-content: center;
+        align-items: center;
+        font-size: 150%;
+        font-weight: bolder;
+        width: 3.3rem;
+        height: 3.3rem;
+        border: .2rem solid rgb(125, 134, 159);
+        border-radius: .5rem;
+        margin: .2rem;
+    }
+    .keyboard{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+    .hasloLetter{
+        background-color: rgba(255, 255, 255, 20%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: large;
+        font-weight: bolder;
+        width: 3rem;
+        height: 3rem;
+        border: .2rem solid rgb(0, 0, 0);
+        border-radius: .5rem;
+        padding: .2rem;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin: .2rem;
+        margin-bottom: 2rem;
+    }
+    #obraz{
+        width: 60%;
+    }
+}
